@@ -18,6 +18,7 @@ package com.example.jetnews.ui.home
 
 import android.content.Context
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
+import android.icu.util.Calendar
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -466,6 +467,15 @@ private fun FullScreenLoading() {
  */
 @Composable
 private fun PostListTopSection(post: Post, navigateToPost: (String) -> Unit) {
+    val hora = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
+    val saludo = when{
+        hora <12 -> R.string.saludo_manana
+        hora <20 -> R.string.saludo_tarde
+        else -> R.string.saludo_noche}
+    Text(modifier = Modifier.padding(start = 16.dp, top = 16.dp, end = 16.dp),
+        text=stringResource(id=saludo))
+
+
     Text(
         modifier = Modifier.padding(start = 16.dp, top = 16.dp, end = 16.dp),
         text = stringResource(id = R.string.home_top_section_title),
